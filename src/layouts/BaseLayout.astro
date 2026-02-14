@@ -1,4 +1,7 @@
 ---
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
 type Props = {
   title?: string;
   description?: string;
@@ -7,17 +10,23 @@ type Props = {
 };
 
 const {
-  title = "Lee Williams | developer",  //change this
-  description = "I build lightning fast, trade grade web solutions.", // change this
+  title, 
+  description = "I build lightning fast, trade grade web solutions.", 
   canonicalPath,
   ogImagePath = "/og.png",
 } = Astro.props;
 
 // Set once per project
-const SITE_URL = "https://example.com"; // change this
-const SITE_NAME = "Lee Williams"; //change this
+const SITE_URL = "https://example.com"; 
+const SITE_NAME = "Lee Williams";
+const TAGLINE = "Developer"; // Added tagline for the home page
 
-const fullTitle = title === SITE_NAME ? SITE_NAME : `${title} | ${SITE_NAME}`;
+// LOGIC: If title is exactly SITE_NAME or empty, use the Name + Tagline. 
+// Otherwise, use Page Title | Site Name.
+const fullTitle = !title || title === SITE_NAME 
+  ? `${SITE_NAME} | ${TAGLINE}` 
+  : `${title} | ${SITE_NAME}`;
+
 const canonicalUrl = new URL(canonicalPath ?? Astro.url.pathname, SITE_URL).toString();
 const ogImageUrl = new URL(ogImagePath, SITE_URL).toString();
 ---
@@ -28,6 +37,7 @@ const ogImageUrl = new URL(ogImagePath, SITE_URL).toString();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    {/* Use fullTitle here to get the logic we created above */}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -39,13 +49,17 @@ const ogImageUrl = new URL(ogImagePath, SITE_URL).toString();
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
 
   <body>
-    <slot />
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>

@@ -1,0 +1,132 @@
+---
+import { Send, X, Menu } from "@lucide/astro"
+
+
+const navItems = [
+  { name: "About", href: "/" },
+  { name: "Pricing", href: "/" },
+  { name: "Features", href: "/" },
+];
+---
+
+<header class="transition-colors duration-500 hover:bg-surface">
+  <div class="container-site">
+    <div class="flex items-center justify-between md:py-8">
+
+      <!-- LEFT SIDE -->
+      <div class="flex items-center gap-12">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-1">
+          <img 
+    src="/favicon.ico" 
+    alt="Minted Logo" 
+    class="w-8 h-8 object-contain"
+    style="image-rendering: pixelated;" 
+  />
+          
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:block" aria-label="Primary">
+          <ul class="flex gap-8">
+            {navItems.map((item) => (
+              <li>
+                <a href={item.href} class="text-md capitalize font-medium nav-link">
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="flex items-center gap-12">
+        
+
+        <!-- CTAs (desktop only) -->
+        <div class="hidden md:flex gap-4">
+          
+          <a href="/" class="btn btn-primary gap-2">
+            Send Me a Message
+            <Send />
+          </a>
+        </div>
+
+        <!-- Mobile menu toggle -->
+        <button
+          id="menu-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          class="md:hidden w-12 h-12 rounded-full flex items-center justify-center"
+        >
+          <Menu class="text-primary" size={24} stroke-width={2} />
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu Panel -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 pt-4 bg-surface z-40 translate-x-full transition-transform duration-500 ease-in-out md:hidden"
+  aria-hidden="true"
+>
+  <!-- Top bar -->
+  <div class="flex justify-end p-6">
+    <button
+      id="menu-close"
+      type="button"
+      aria-label="Close menu"
+      class="w-12 h-12 rounded-full bg-brand-soft flex items-center justify-center transition-transform duration-200 hover:scale-105"
+    >
+      <X class="text-primary" size={20} stroke-width={2} />
+    </button>
+  </div>
+
+  <!-- Menu content -->
+  <nav class="px-6" aria-label="Mobile">
+    <ul class="flex flex-col gap-8">
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href} class="text-2xl font-black">
+            {item.name}
+          </a>
+        </li>
+      ))}
+      
+    </ul>
+  </nav>
+</div>
+
+<script>
+  const btn = document.getElementById('menu-toggle');
+  const closeBtn = document.getElementById('menu-close');
+  const menu = document.getElementById('mobile-menu');
+
+  function setMenu(open: boolean | undefined) {
+    if (!btn || !menu) return;
+
+    menu.classList.toggle('translate-x-full', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+
+    btn.setAttribute('aria-expanded', String(open));
+    menu.setAttribute('aria-hidden', String(!open));
+  }
+
+  btn?.addEventListener('click', () => setMenu(true));
+  closeBtn?.addEventListener('click', () => setMenu(false));
+
+  menu?.addEventListener('click', (e) => {
+    if (!(e.target instanceof HTMLElement)) return;
+    if (e.target.closest('a')) setMenu(false);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+</script>

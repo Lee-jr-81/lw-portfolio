@@ -1,0 +1,64 @@
+---
+const year = new Date().getFullYear()
+---
+
+<footer class="site-footer">
+  <div class="container-site">
+    <div class="flex flex-col gap-12 py-8">
+
+      <!-- Top -->
+      <div class="flex flex-col gap-12 md:flex-row md:items-start md:justify-between">
+
+        <!-- Brand -->
+        <div class="max-w-sm">
+          <a href="/" class="inline-block">
+            <span class="text-2xl font-medium">Lee Williams</span>
+          </a>
+          <p class="mt-4 text-secondary font-light leading-relaxed">
+            Building and delivering trade grade front end systems on behalf of agencies and client work.
+          </p>
+        </div>
+
+        <!-- Columns -->
+        <div class="">
+          
+
+          <nav aria-label="Company">
+            <h2 class="text-sm font-medium mb-4">Company</h2>
+            <ul class="space-y-3">
+              <li><a class="text-secondary font-light hover:text-brand transition-colors" href="/">About</a></li>
+              <li><a class="text-secondary font-light hover:text-brand transition-colors" href="/">Careers</a></li>
+              <li><a class="text-secondary font-light hover:text-brand transition-colors" href="/">Contact</a></li>
+            </ul>
+          </nav>
+
+         
+        </div>
+
+      </div>
+
+      <!-- Bottom -->
+      <div class="pt-8 border-t border-border flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <nav aria-label="Social">
+          <ul class="flex gap-6">
+            <li><a class="text-muted hover:text-primary transition-colors" href="#" rel="me">LinkedIn</a></li>
+            <li><a class="text-muted hover:text-primary transition-colors" href="#" rel="me">X</a></li>
+            <li><a class="text-muted hover:text-primary transition-colors" href="#" rel="me">YouTube</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-label="Legal">
+          <ul class="flex gap-6">
+            <li><a class="text-muted hover:text-primary transition-colors" href="/">Privacy</a></li>
+            <li><a class="text-muted hover:text-primary transition-colors" href="/">Terms</a></li>
+          </ul>
+        </nav>
+
+        <p class="text-sm text-muted">
+          © {year} Lee Williams. All rights reserved.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</footer>
